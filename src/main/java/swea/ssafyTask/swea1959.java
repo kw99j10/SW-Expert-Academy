@@ -1,4 +1,4 @@
-package swea.ssafy;
+package swea.ssafyTask;
 
 import java.util.Scanner;
 
