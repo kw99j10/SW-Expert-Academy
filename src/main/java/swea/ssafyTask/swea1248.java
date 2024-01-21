@@ -22,6 +22,7 @@ public class swea1248 {
             com1 = sc.nextInt();
             com2 = sc.nextInt();
 
+            //각 배열 초기화
             parent = new int[v + 1];
             child = new int[v + 1][2];
             visit = new boolean[v + 1];
@@ -31,7 +32,9 @@ public class swea1248 {
 
                 int a = sc.nextInt();
                 int b = sc.nextInt();
-                parent[b] = a;
+
+                parent[b] = a; //자식을 부모 트리에 저장
+
                 if (child[a][0] == 0) {
                     child[a][0] = b; //자식이 없다면 왼쪽 노드에 저장
                 }
@@ -42,22 +45,24 @@ public class swea1248 {
 
             int x = com1;
             int y = com2; //두개의 정점
+
             visit[x] = visit[y] = true;
 
             int next1 = 0;
             int next2 = 0;
 
-            int ans1 = 0;
-            int ans2 = 0;
+            int commParent; //가장 가까운 공통 조상
+            int treeSize = 0; //그 조상의 트리 크기
 
             LinkedList<Integer> queue = new LinkedList<>();
 
+            //공통된 부모 노드가 나올 때 까지 노드 이동
             while (true) {
                 if (parent[x] != 0) {
                     next1 = parent[x];
 
                     if (visit[next1]) {
-                        ans1 = next1;
+                        commParent = next1;
                         break;
                     }
 
@@ -68,7 +73,7 @@ public class swea1248 {
                     next2 = parent[y];
 
                     if (visit[next2]) {
-                        ans1 = next2;
+                        commParent = next2;
                         break;
                     }
                     visit[next2] = true;
@@ -76,10 +81,12 @@ public class swea1248 {
                 x = next1;
                 y = next2;
             }
-            queue.add(ans1);
+            queue.add(commParent);
+
+            //현재 부모 노드의 자식 노드를 탐색 => 크기 계산
             while (!queue.isEmpty()) {
-                Integer current = queue.poll();
-                ans2 += 1;
+                int current = queue.poll();
+                treeSize += 1;
 
                 if (child[current][0] == 0) {
                     continue;
@@ -91,7 +98,7 @@ public class swea1248 {
                 }
                 queue.add(child[current][1]);
             }
-            System.out.println("#" + test_case + " " + ans1 + " " + ans2);
+            System.out.println("#" + test_case + " " + commParent + " " + treeSize);
         }
     }
 

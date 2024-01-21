@@ -4,6 +4,11 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 //파핑파핑 지뢰찾기
+
+/**
+ *  문제 풀이: 지뢰의 위치 탐색 -> 지뢰가 없는 곳 인접 지뢰 개수를 탐색
+ *      -> bfs 수행 -> 방문하지 않은 위치 탐색
+ */
 public class swea1868 {
     static int n;
     static char[][] arr;
@@ -47,7 +52,7 @@ public class swea1868 {
                         }
                     }
                     if (arr[i][j] == '.') {
-                        arr[i][j] = (char) (count + '0');
+                        arr[i][j] = (char) (count + '0'); //인접 지뢰 개수를 저장
                     }
                 }
             }
@@ -57,7 +62,7 @@ public class swea1868 {
                 for (int j = 0; j < n; j++) {
                     if (arr[i][j] == '0' && !visit[i][j]) {
                         bfs(i, j);
-                        click += 1;
+                        click += 1; //bfs 수행
                     }
                 }
             }
@@ -93,7 +98,7 @@ public class swea1868 {
                             lists.add(new int[]{move_x, move_y});
                         }
                         else if (arr[move_x][move_y] != '0') {
-                            visit[move_x][move_y] = true;
+                            visit[move_x][move_y] = true; //인접 지뢰가 있으므로 방문만 함
                         }
                     }
                 }
